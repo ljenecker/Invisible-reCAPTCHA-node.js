@@ -51,13 +51,15 @@
   </div>
 
   <script>
-      document.getElementById('subscribeForm').addEventListener('submit', submitForm);
+      document.getElementById('subscribeForm').addEventListener('submit', executeCaptcha);
+
+      function executeCaptcha(e){
+        e.preventDefault();
+        grecaptcha.execute();
+      }
 
       function submitForm(e){
-        e.preventDefault();
 
-        grecaptcha.execute();
-        
         const name = document.querySelector('#name').value;
         const email = document.querySelector('#email').value;
         const captcha = document.querySelector('#g-recaptcha-response').value;
@@ -72,7 +74,6 @@
         })
         .then((res) => res.json())
         .then((data) => {
-            console.log(data);
             alert(data.msg);
         });
     }
